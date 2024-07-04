@@ -3,7 +3,7 @@
 # -----------------------------------------------
 host1:
   vm_name: primary
-  mem_size: 8192
+  mem_size: 4096
   cpus: 2
   public_ip:  192.168.56.131
   private_ip: 192.168.200.131
@@ -11,7 +11,7 @@ host1:
 
 host2:
   vm_name: standby
-  mem_size: 8192
+  mem_size: 4096
   cpus: 2
   public_ip:  192.168.56.132
   private_ip: 192.168.200.132
@@ -50,7 +50,7 @@ env:
 ## -----------------------------------------------
 #host1:
 #  vm_name: primary
-#  mem_size: 8192
+#  mem_size: 4096
 #  cpus: 2
 #  public_ip:  192.168.125.131
 #  private_ip: 192.168.200.131
@@ -58,7 +58,7 @@ env:
 #
 #host2:
 #  vm_name: standby
-#  mem_size: 8192
+#  mem_size: 4096
 #  cpus: 2
 #  public_ip:  192.168.125.132
 #  private_ip: 192.168.200.132

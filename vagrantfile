@@ -194,11 +194,11 @@ if !var_prefix_name.match? /\A[0-9a-zA-Z-]{1,14}\z/
   exit
 end
 
-if var_vm1_mem_size.to_i < 6144
+if var_vm1_mem_size.to_i < 4096
   puts 'ERROR: vm1_mem_size option can not be less then 6 Gb'
   exit
 end
-if var_vm2_mem_size.to_i < 6144
+if var_vm2_mem_size.to_i < 4096
   puts 'ERROR: vm2_mem_size option can not be less then 6 Gb'
   exit
 end
