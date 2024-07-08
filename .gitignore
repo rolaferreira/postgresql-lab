@@ -6,3 +6,4 @@ CVS
 .zip
 *.swp
 *.vdi
+config/setup.env

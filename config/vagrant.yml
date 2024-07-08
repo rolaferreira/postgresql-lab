@@ -7,7 +7,7 @@ host1:
   cpus: 2
   public_ip:  192.168.56.131
   private_ip: 192.168.200.131
-  u01_disk: ./primary_u01.vdi
+  pgdata_disk: ./primary_pgdata.vdi
 
 host2:
   vm_name: standby
@@ -15,7 +15,7 @@ host2:
   cpus: 2
   public_ip:  192.168.56.132
   private_ip: 192.168.200.132
-  u01_disk: ./standby_u01.vdi
+  pgdata_disk: ./standby_pgdata.vdi
 
 env:
   provider: virtualbox

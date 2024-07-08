@@ -163,8 +163,8 @@ if var_provider_name == 'libvirt'
 end
 if var_provider_name == 'virtualbox'
   var_group           = "/" + var_prefix_name
-  var_vm1_u01_disk       = params['host1']['u01_disk']
-  var_vm2_u01_disk       = params['host2']['u01_disk']
+  var_vm1_pgdata_disk       = params['host1']['pgdata_disk']
+  var_vm2_pgdata_disk       = params['host2']['pgdata_disk']
   var_non_rotational     = params['env']['non_rotational']
   var_oradata_disk_path  = params['env']['oradata_disk_path']
 
@@ -177,11 +177,11 @@ if var_provider_name == 'virtualbox'
   else
     var_oradata_disk_path = var_oradata_disk_path + "/"
   end
-  if var_vm1_u01_disk.to_s.empty?
-    var_vm1_u01_disk = "./primary_u01.vdi"
+  if var_vm1_pgdata_disk.to_s.empty?
+    var_vm1_pgdata_disk = "./primary_pgdata.vdi"
   end
-  if var_vm2_u01_disk.to_s.empty?
-    var_vm2_u01_disk = "./standby_u01.vdi"
+  if var_vm2_pgdata_disk.to_s.empty?
+    var_vm2_pgdata_disk = "./standby_pgdata.vdi"
   end
 end
 
@@ -453,11 +453,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           disk_num += 1
         end
 
-        # Make u01 vdisk
-        unless File.exist?(var_vm1_u01_disk)
-          vb.customize ['createhd', '--filename', var_vm1_u01_disk, '--size', 100 * 1024]
+        # Make pgdata vdisk
+        unless File.exist?(var_vm1_pgdata_disk)
+          vb.customize ['createhd', '--filename', var_vm1_pgdata_disk, '--size', 100 * 1024]
         end
-        vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', disk_num, '--device', 0, '--type', 'hdd', '--medium', var_vm1_u01_disk, '--nonrotational', var_non_rotational]
+        vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', disk_num, '--device', 0, '--type', 'hdd', '--medium', var_vm1_pgdata_disk, '--nonrotational', var_non_rotational]
 
         # Making oradata disks
         #disk_num = disk_num.to_i + 1
@@ -493,11 +493,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           disk_num += 1
         end
 
-        # Make u01 vdisk
-        unless File.exist?(var_vm2_u01_disk)
-          vb.customize ['createhd', '--filename', var_vm2_u01_disk, '--size', 100 * 1024]
+        # Make pgdata vdisk
+        unless File.exist?(var_vm2_pgdata_disk)
+          vb.customize ['createhd', '--filename', var_vm2_pgdata_disk, '--size', 100 * 1024]
         end
-        vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', disk_num, '--device', 0, '--type', 'hdd', '--medium', var_vm2_u01_disk, '--nonrotational', var_non_rotational]
+        vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', disk_num, '--device', 0, '--type', 'hdd', '--medium', var_vm2_pgdata_disk, '--nonrotational', var_non_rotational]
 
         # Making oradata disks
         #disk_num = disk_num.to_i + 1
@@ -523,30 +523,30 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   SHELL
 
   # Enable provisioning with a shell script
-#  config.vm.provision "shell", path: "scripts/setup.sh", env: {
-#      "PROVIDER"         => var_provider_name,
-#      "BOX_DISK_NUM"     => box_disks_num,
-#      "VM1_NAME"         => var_vm1_name,
-#      "VM2_NAME"         => var_vm2_name,
-#      "SYSTEM_TIMEZONE"  => var_system_timezone,
-#      "PREFIX_NAME"      => var_prefix_name,
-#      "DB_SOFTWARE"      => var_db_software,
-#      "DB_SOFTWARE_VER"  => var_db_software_ver,
-#      "ORA_LANGUAGES"    => var_ora_languages,
-#      "NODE1_PUBLIC_IP"  => var_vm1_public_ip,
-#      "NODE2_PUBLIC_IP"  => var_vm2_public_ip,
-#      "NODE1_PRIV_IP"    => var_vm1_private_ip,
-#      "NODE2_PRIV_IP"    => var_vm2_private_ip,
-#      "DOMAIN"           => var_domain,
-#      "ROOT_PASSWORD"    => var_root_password,
-#      "ORACLE_PASSWORD"  => var_oracle_password,
-#      "SYS_PASSWORD"     => var_sys_password,
-#      "PDB_PASSWORD"     => var_pdb_password,
-#      "DB_NAME"          => var_db_name,
-#      "PDB_NAME"         => var_pdb_name,
-#      "CDB"              => var_cdb,
-#      "ADG"              => var_adg
-#  }
+  config.vm.provision "shell", path: "scripts/setup.sh", env: {
+      "PROVIDER"         => var_provider_name,
+      "BOX_DISK_NUM"     => box_disks_num,
+      "VM1_NAME"         => var_vm1_name,
+      "VM2_NAME"         => var_vm2_name,
+      "SYSTEM_TIMEZONE"  => var_system_timezone,
+      "PREFIX_NAME"      => var_prefix_name,
+      "DB_SOFTWARE"      => var_db_software,
+      "DB_SOFTWARE_VER"  => var_db_software_ver,
+      "ORA_LANGUAGES"    => var_ora_languages,
+      "NODE1_PUBLIC_IP"  => var_vm1_public_ip,
+      "NODE2_PUBLIC_IP"  => var_vm2_public_ip,
+      "NODE1_PRIV_IP"    => var_vm1_private_ip,
+      "NODE2_PRIV_IP"    => var_vm2_private_ip,
+      "DOMAIN"           => var_domain,
+      "ROOT_PASSWORD"    => var_root_password,
+      "ORACLE_PASSWORD"  => var_oracle_password,
+      "SYS_PASSWORD"     => var_sys_password,
+      "PDB_PASSWORD"     => var_pdb_password,
+      "DB_NAME"          => var_db_name,
+      "PDB_NAME"         => var_pdb_name,
+      "CDB"              => var_cdb,
+      "ADG"              => var_adg
+  }
 
 end
 #----------------------------------------------------------
