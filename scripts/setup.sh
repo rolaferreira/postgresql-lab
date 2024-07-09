@@ -209,7 +209,7 @@ echo ${ROOT_PASSWORD}   | passwd --stdin root
 #sh /vagrant/scripts/08_setup_autostart.sh
 
 # run user-defined post-setup scripts
-run_user_scripts;
+#run_user_scripts;
 #----------------------------------------------------------
 # EndOfFile
 #----------------------------------------------------------
