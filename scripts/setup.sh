@@ -151,7 +151,7 @@ sudo timedatectl set-timezone $SYSTEM_TIMEZONE
 #--------------------------------------------------------------------
 #--------------------------------------------------------------------
 # Install OS Pachages
-#sh /vagrant/scripts/01_install_os_packages.sh
+sh /vagrant/scripts/01_install_os_packages.sh
 
 # Setting-up /u01 disk
 #sh /vagrant/scripts/02_setup_u01.sh $BOX_DISK_NUM $PROVIDER
