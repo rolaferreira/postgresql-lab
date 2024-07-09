@@ -163,8 +163,8 @@ if var_provider_name == 'libvirt'
 end
 if var_provider_name == 'virtualbox'
   var_group           = "/" + var_prefix_name
-  var_vm1_pgdata_disk       = params['host1']['pgdata_disk']
-  var_vm2_pgdata_disk       = params['host2']['pgdata_disk']
+  var_vm1_pgsql_disk       = params['host1']['pgsql_disk']
+  var_vm2_pgsql_disk       = params['host2']['pgsql_disk']
   var_non_rotational     = params['env']['non_rotational']
   var_oradata_disk_path  = params['env']['oradata_disk_path']
 
@@ -177,11 +177,11 @@ if var_provider_name == 'virtualbox'
   else
     var_oradata_disk_path = var_oradata_disk_path + "/"
   end
-  if var_vm1_pgdata_disk.to_s.empty?
-    var_vm1_pgdata_disk = "./primary_pgdata.vdi"
+  if var_vm1_pgsql_disk.to_s.empty?
+    var_vm1_pgsql_disk = "./primary_pgsql.vdi"
   end
-  if var_vm2_pgdata_disk.to_s.empty?
-    var_vm2_pgdata_disk = "./standby_pgdata.vdi"
+  if var_vm2_pgsql_disk.to_s.empty?
+    var_vm2_pgsql_disk = "./standby_pgsql.vdi"
   end
 end
 
@@ -453,11 +453,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           disk_num += 1
         end
 
-        # Make pgdata vdisk
-        unless File.exist?(var_vm1_pgdata_disk)
-          vb.customize ['createhd', '--filename', var_vm1_pgdata_disk, '--size', 100 * 1024]
+        # Make pgsql vdisk
+        unless File.exist?(var_vm1_pgsql_disk)
+          vb.customize ['createhd', '--filename', var_vm1_pgsql_disk, '--size', 100 * 1024]
         end
-        vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', disk_num, '--device', 0, '--type', 'hdd', '--medium', var_vm1_pgdata_disk, '--nonrotational', var_non_rotational]
+        vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', disk_num, '--device', 0, '--type', 'hdd', '--medium', var_vm1_pgsql_disk, '--nonrotational', var_non_rotational]
 
         # Making oradata disks
         #disk_num = disk_num.to_i + 1
@@ -493,11 +493,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           disk_num += 1
         end
 
-        # Make pgdata vdisk
-        unless File.exist?(var_vm2_pgdata_disk)
-          vb.customize ['createhd', '--filename', var_vm2_pgdata_disk, '--size', 100 * 1024]
+        # Make pgsql vdisk
+        unless File.exist?(var_vm2_pgsql_disk)
+          vb.customize ['createhd', '--filename', var_vm2_pgsql_disk, '--size', 100 * 1024]
         end
-        vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', disk_num, '--device', 0, '--type', 'hdd', '--medium', var_vm2_pgdata_disk, '--nonrotational', var_non_rotational]
+        vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', disk_num, '--device', 0, '--type', 'hdd', '--medium', var_vm2_pgsql_disk, '--nonrotational', var_non_rotational]
 
         # Making oradata disks
         #disk_num = disk_num.to_i + 1
