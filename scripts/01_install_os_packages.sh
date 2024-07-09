@@ -29,7 +29,7 @@ echo "-----------------------------------------------------------------"
 echo -e "${INFO}`date +%F' '%T`: Install base packages"
 echo "-----------------------------------------------------------------"
 dnf install -y dnf-utils parted openssl tree unzip zip 
-dnf install -y oracle-database-preinstall-21c
+#dnf install -y oracle-database-preinstall-21c
 
 echo "-----------------------------------------------------------------"
 echo -e "${INFO}`date +%F' '%T`: Disabling firewalld"
