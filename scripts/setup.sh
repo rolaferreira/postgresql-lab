@@ -161,7 +161,7 @@ sh /vagrant/scripts/02_setup_pgsql.sh $BOX_DISK_NUM $PROVIDER
 #sh /vagrant/scripts/03_setup_oradata_disks.sh $BOX_DISK_NUM $PROVIDER
 
 # Setup /etc/hosts & /etc/resolv.conf
-#sh /vagrant/scripts/04_setup_hosts.sh
+sh /vagrant/scripts/03_setup_hosts.sh
 
 # Setup users
 #sh /vagrant/scripts/05_setup_users.sh
