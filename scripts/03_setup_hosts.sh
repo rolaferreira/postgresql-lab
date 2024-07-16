@@ -47,12 +47,12 @@ ${NODE2_PUBLIC_IP}  ${NODE2_FQ_HOSTNAME}  ${NODE2_HOSTNAME}
 #${NODE2_VIP_IP}  ${NODE2_FQ_VIPNAME}    ${NODE2_VIPNAME}
 EOF
 
-echo "-----------------------------------------------------------------"
-echo -e "${INFO}`date +%F' '%T`: Setup /etc/resolv.conf"
-echo "-----------------------------------------------------------------"
-cat > /etc/resolv.conf <<EOF
-search ${DOMAIN_NAME}
-EOF
+#echo "-----------------------------------------------------------------"
+#echo -e "${INFO}`date +%F' '%T`: Setup /etc/resolv.conf"
+#echo "-----------------------------------------------------------------"
+#cat > /etc/resolv.conf <<EOF
+#search ${DOMAIN_NAME}
+#EOF
 
 #----------------------------------------------------------
 # EndOfFile
